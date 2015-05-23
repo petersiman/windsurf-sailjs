@@ -1,0 +1,63 @@
+include ../mixins
+doctype
+html( lang="en" )
+    head
+        title Baking Bootstrap Snippets with Jade
+        meta( charset='utf-8' )
+        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
+        //- Bootswatch Theme
+        link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+ 
+    body(style="padding-bottom:10rem;")
+        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+        +nav("Windsurfing Portal", "dropdown_menu")
+            +nav_item( "/advert/show" ) Adverts
+            +nav_item( "/about" ) About
+            +nav_item( "/contact" ) Contact
+            +nav_item( "/signin" ) Signin
+            +nav_item_dropdown( "#" )( label="Dropdown")
+                +nav_item( "#" ) Action
+                +nav_item( "#" ) Another action
+                +nav_item( "#" ) Something else here
+                +nav_divider
+                +nav_header Nav header
+                +nav_item( "#" ) Separated link
+                +nav_item( "#" ) One more separated link
+        .container-fluid
+            .row-fluid
+                .span12
+                    h2 Create new advert
+                    if flash && flash.err
+                        ul.alert.alert-success
+                            each e in Object.keys(flash.err.invalidAttributes)
+                                li Chyba pri spracovani #{e}
+                    form(action='/advert/create', method='post', name='addAdvertForm')
+                        label(for='advertType') Typ inzeratu
+                        select#advertType.form-control(name='advertType')
+                            option(value='buy') Koupím
+                            option(value='sell') Prodám
+                            option(value='give') Daruji
+                        label(for='advertCategory') Kategorie
+                        select#advertCategory.form-control(name='advertCategory')
+                            option(value='complete') Komplet
+                            option(value='sail') Plachta
+                            option(value='board') Prkno
+                            option(value='clothes') Obleceni
+                            option(value='other') Ostatni
+                        .form-group
+                            label(for='advertTitle') Title
+                            input#exampleInputEmail1.form-control(type='text', placeholder='Enter title', name='title')
+                        .form-group
+                            label(for='advertBody') Telo inzeratu
+                            textarea#advertBody.form-control(rows='3', name='advertBody', placeholder='Enter description')
+                        .form-group
+                            label(for='email') Email
+                            input#email.form-control(type='text', placeholder='Email', name='email')
+                        .form-group
+                            label(for='imageFile') Image file
+                            input#exampleInputEmail1(type='file')
+                            p.help-block Max. 3 pictures
+                        button.btn.btn-default(type='submit') Submit

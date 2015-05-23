@@ -1,0 +1,49 @@
+include mixins
+doctype
+html( lang="en" )
+    head
+        title Baking Bootstrap Snippets with Jade
+        meta( charset='utf-8' )
+        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
+        //- Bootswatch Theme
+        link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+ 
+    body(style="padding-bottom:10rem;")
+        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+        +nav("Windsurfing Portal", "dropdown_menu")
+            +nav_item( "/", "active" ) Adverts
+            +nav_item( "/about" ) About
+            +nav_item( "/contact" ) Contact
+            +nav_item( "/signin" ) Signin
+            +nav_item_dropdown( "#" )( label="Dropdown")
+                +nav_item( "#" ) Action
+                +nav_item( "#" ) Another action
+                +nav_item( "#" ) Something else here
+                +nav_divider
+                +nav_header Nav header
+                +nav_item( "#" ) Separated link
+                +nav_item( "#" ) One more separated link
+        .container-fluid
+            .row-fluid
+                .span9
+                    .row-fluid
+                        .span3
+                            +panel("Prodam: Surf", "info") RD Včetně obalu a flosny,poutka,,,, stav OK ,
+                        .span3 
+                            +panel("Koupim: Tabou") TABOU Včetně obalu a flosny,poutka,,,, stav OKTel 608552872
+                        .span3
+                            +panel("Prodam: Best wind") Ahoj, prodám starší ale pořád parádní freestyle prkno FANATIC SKATE 99L, délka: 238 cm, šířka: 64 cm, váha: 6,3kg. Neprošlapaný, celkem málo ježděný a na moři asi 2x, nějáký šrámy ale nic velkýho. Prodávám to bez boardbagu s jednou fínou (PowerBox).
+                        .span3
+                            +panel("Koupim: Plachta") Ahoj, potávám plachtu 8-9m2, camber nevadí,těžká race plachta nevadí, nejlépe max 5let stáří, možný nákup i se stěžněm. Děkuji 
+                    .row-fluid
+                        .span3
+                            +panel("Koupim: Plachta") Ahoj, potávám plachtu 8-9m2, camber nevadí,těžká race plachta nevadí, nejlépe max 5let stáří, možný nákup i se stěžněm. Děkuji 
+                        .span3
+                            +panel("Koupim: Plachta") Ahoj, potávám plachtu 8-9m2, camber nevadí,těžká race plachta nevadí, nejlépe max 5let stáří, možný nákup i se stěžněm. Děkuji 
+                        .span3
+                            +panel("Koupim: Plachta") Ahoj, potávám plachtu 8-9m2, camber nevadí,těžká race plachta nevadí, nejlépe max 5let stáří, možný nákup i se stěžněm. Děkuji 
+                .span3.visible-desktop
+                    +panel("pocasi", "primary") Webcamera Nove mlyny
