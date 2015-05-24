@@ -26,6 +26,10 @@ html( lang="en" )
                             each adv in adverts
                                 .span3
                                     +panel(adv.title + ' ' + adv.createdAt) #{adv.advertBody}
+                                        if adv.images && adv.images.length > 0
+                                            div
+                                                each image in adv.images
+                                                    img(src = '/image/show/#{image.id}', alt='#{image.fileName}')
                         else
                             .span3
                                 +panel("No items") No items found.

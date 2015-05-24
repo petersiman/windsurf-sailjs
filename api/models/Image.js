@@ -17,12 +17,13 @@ module.exports = {
           type: 'string',
           defaultsTo: 'unknown.jpg'
       },
-      imageDate: {
-          type: 'binary'
+      path: {
+          type: 'string',
+          required: true
       },
       type: {
           type: 'string',
-          defaultsTo: 'jpg'
+          defaultsTo: 'image/jpg'
       },
       advert: {
           model: 'advert'

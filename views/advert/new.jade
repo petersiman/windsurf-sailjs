@@ -34,7 +34,7 @@ html( lang="en" )
                         ul.alert.alert-success
                             each e in Object.keys(flash.err.invalidAttributes)
                                 li Chyba pri spracovani #{e}
-                    form(action='/advert/create', method='post', name='addAdvertForm')
+                    form(action='/advert/create', method='post', name='addAdvertForm', enctype='multipart/form-data')
                         label(for='advertType') Typ inzeratu
                         select#advertType.form-control(name='advertType')
                             option(value='buy') Koupím
@@ -54,10 +54,11 @@ html( lang="en" )
                             label(for='advertBody') Telo inzeratu
                             textarea#advertBody.form-control(rows='3', name='advertBody', placeholder='Enter description')
                         .form-group
-                            label(for='email') Email
-                            input#email.form-control(type='text', placeholder='Email', name='email')
-                        .form-group
-                            label(for='imageFile') Image file
-                            input#exampleInputEmail1(type='file')
+                            label(for='imageFile1') Image file
+                            input#imageFile1(type='file', name='imageFile')
+                            label(for='imageFile2') Image file
+                            input#imageFile2(type='file', name='imageFile')
+                            label(for='imageFile3') Image file
+                            input#imageFile3(type='file', name='imageFile')
                             p.help-block Max. 3 pictures
                         button.btn.btn-default(type='submit') Submit

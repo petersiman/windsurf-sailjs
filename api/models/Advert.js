@@ -43,7 +43,6 @@ module.exports = {
     },
     email: {
         type: 'email',
-        required: true
     },
     advertBody: {
         type: 'text',
