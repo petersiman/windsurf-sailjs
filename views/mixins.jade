@@ -35,9 +35,11 @@ mixin nav_header
 //- End navbar mixins
 
 //- Panel mixin
-mixin panel(heading, style)
+mixin panel(heading, footer, style)
     - var style = (typeof style === 'undefined') ? "default" : style
     div( class=["panel", "panel-" + style] )
         .panel-heading= heading
         .panel-body
             block
+        if footer
+            .panel-footer=footer

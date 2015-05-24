@@ -6,8 +6,9 @@
 */
 
 module.exports = {
+    schema: true,
 
-  attributes: {
+    attributes: {
     id : {
         type: 'integer',
         primaryKey: true,
@@ -42,6 +43,6 @@ module.exports = {
         type: 'text',
         required: true
     }
-  }
+    }
 };
 

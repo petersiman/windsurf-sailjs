@@ -18,20 +18,50 @@ html( lang="en" )
             +nav_item( "/about" ) About
             +nav_item( "/contact" ) Contact
             +nav_item( "/signin" ) Signin
-        .container-fluid
-            .row-fluid
-                .span9
-                    .row-fluid
-                        if adverts.length > 0
-                            each adv in adverts
-                                .span3
-                                    +panel(adv.title + ' ' + adv.createdAt) #{adv.advertBody}
-                                        if adv.images && adv.images.length > 0
-                                            div
-                                                each image in adv.images
+            .form.navbar-form.navbar-right(role='search')
+                .form-group
+                    input.form-control(type='text', placeholder='Search adverts')
+                button.btn.btn-default(type='submit') Submit
+        .container
+            .row
+                .col-sm-12
+                    +panel('Filter')
+                        .form.form-inline(role='form')
+                            .form-group 
+                                label(for='advertType') Type:
+                                select#advertType.input-sm.form-control(name='advertType')
+                                    option Sell
+                                    option Buy
+                            .form-group
+                                label(for='advertCategory') Category:
+                                select#advertCategory.form-control.input-sm(name='advertType')
+                                    option Sail
+                                    option Board
+                                    option Complete
+                                    option Clothes
+                            button.btn.btn-sm.btn-primary(type='submit') Set filter
+            if adverts.length > 0
+                .row
+                    each adv in adverts
+                        .col-xs-12.col-sm-6.col-md-4.col-lg-3
+                            +panel(adv.title, adv.createdAt.toISOString(), 'success') 
+                                p 
+                                    span.label.label-default #{adv.advertType}
+                                    span.label.label-warning #{adv.advertCategory}
+                                p #{adv.advertBody}
+                                p Price: #{adv.price}
+                                if adv.images && adv.images.length > 0
+                                    div.row
+                                        each image in adv.images
+                                            div.col-xs-6.col-md-6
+                                                a.thumbnail(href='#')
                                                     img(src = '/image/show/#{image.id}', alt='#{image.fileName}')
-                        else
-                            .span3
-                                +panel("No items") No items found.
-                .span3.visible-desktop
-                    +panel("pocasi", "primary") Webcamera Nove mlyny
+                                p
+                                    a.btn.btn-medium(href='/advert/contact/#{adv.id}') Contact user
+                nav
+                    ul.pager
+                        li
+                            a(href='#') Next
+            else
+                .jumbotron
+                    h1 No item found    
