@@ -38,17 +38,10 @@ module.exports = {
         collection: 'image',
         via: 'advert'
     },
-    telephone: {
-        type: 'string'
-    },
-    email: {
-        type: 'email',
-    },
     advertBody: {
         type: 'text',
         required: true
     }
-    
   }
 };
 

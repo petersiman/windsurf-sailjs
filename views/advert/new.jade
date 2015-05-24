@@ -54,6 +54,11 @@ html( lang="en" )
                             label(for='advertBody') Telo inzeratu
                             textarea#advertBody.form-control(rows='3', name='advertBody', placeholder='Enter description')
                         .form-group
+                            label(for='price') Cena
+                            .input-group
+                                input#price.form-control(type='text', name='price', value='0')
+                                .input-group-addon CZK
+                        .form-group
                             label(for='imageFile1') Image file
                             input#imageFile1(type='file', name='imageFile')
                             label(for='imageFile2') Image file
