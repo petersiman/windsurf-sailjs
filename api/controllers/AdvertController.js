@@ -10,7 +10,7 @@ module.exports = {
         res.view();
     },
     show: function (req, res) {
-		console.log("Looking for adverts...");
+		console.log("Looking for adverts Haha...");
         Advert.find()
         .populate('images')
         .sort('createdAt desc')

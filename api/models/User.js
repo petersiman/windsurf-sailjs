@@ -34,10 +34,11 @@ module.exports = {
         profileImage: {
             model: 'profileImage'
         },
+        passports : { collection: 'Passport', via: 'user' },
 
         toJSON: function(){
           var obj = this.toObject();
-          delete obj.encryptedPassword;
+          // delete obj.encryptedPassword;
           delete obj.password;
           delete obj.passwordConfirmation;
           delete obj._csrf;
@@ -53,7 +54,6 @@ module.exports = {
             if (err) {
                 next(err);
             }
-            console.log('Encrypted password: ' + encryptedPassword);
             values.encryptedPassword = encryptedPassword;
             // values.online = true;
             next();

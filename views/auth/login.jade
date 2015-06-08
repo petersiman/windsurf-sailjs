@@ -28,9 +28,18 @@ html( lang="en" )
                 +nav_item( "#" ) One more separated link
         .container
             .jumbotron
-                form.form-signin(role='form')
-                    h2.form-signin-heading Please sign in
-                    input.form-control(type='email', placeholder='Email address', required='', autofocus='')
-                    input.form-control(type='password', placeholder='Password', required='')
-                    button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
-                    input(type='hidden', name='_csrf', value='#{_csrf}')
+                p
+                    if errors 
+                        ul.alert.alert-success
+                            each e in errors
+                                li #{e}
+                    form.form-signin(role='form', action='/auth/local', method='post')
+                        h2.form-signin-heading Please sign in
+                        input.form-control(name='identifier', type='email', placeholder='Email address', required='', autofocus='')
+                        input.form-control(name='password', type='password', placeholder='Password', required='')
+                        button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
+                        input(type='hidden', name='_csrf', value='#{_csrf}')
+                    if Object.keys(providers).length
+                        h4 You can also use one of these...
+                        each key in Object.keys(providers)
+                            a(href='/auth/#{providers[key].slug}', role='button') #{providers[key].name}
