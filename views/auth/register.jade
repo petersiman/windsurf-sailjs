@@ -24,13 +24,12 @@ html( lang="en" )
                             ul.alert.alert-success
                                 each e in errors
                                     li #{e}
-                        form.form-signin(role='form', action='/auth/local', method='post')
-                            h2.form-signin-heading Please sign in
+                        form.form-signin(role='form', action='/auth/local/register', method='post')
+                            h2.form-signin-heading Register
+                            input.form-control(name='username', type='text', placeholder='Username', required='true', autofocus='true')
                             input.form-control(name='identifier', type='email', placeholder='Email address', required='', autofocus='')
                             input.form-control(name='password', type='password', placeholder='Password', required='')
-                            button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
+                            button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign up
                             input(type='hidden', name='_csrf', value='#{_csrf}')
-                        if Object.keys(providers).length
-                            h4 You can also use one of these...
-                            each key in Object.keys(providers)
-                                a(href='/auth/#{providers[key].slug}', role='button') #{providers[key].name}    
+
+

@@ -10,8 +10,24 @@ module.exports = {
         res.view();
     },
     show: function (req, res) {
-		console.log("Looking for adverts Haha...");
-        Advert.find()
+		console.log("Looking for adverts ...");
+        var filter = {};
+        if (req.param('advertType')){
+            console.log('Filtering...');
+            console.log('advert type: ' + req.param('advertType'));
+            filter.advertType = req.param('advertType');
+        }
+        
+        if ( req.param('advertCategory')){
+            console.log('advert category: ' + req.param('advertCategory'));
+            filter.advertCategory = req.param('advertCategory');
+        }
+        if (req.param('q')){
+            console.log('seaching for query: ' + req.param('q'));
+            filter.or = [{'advertTitle' : {'contains' : req.param('q')}}, {'advertBody' : {'contains' : req.param('q')}}]
+        }
+        console.log(JSON.stringify(filter));
+        Advert.find(filter)
         .populate('images')
         .sort('createdAt desc')
         .limit(10)

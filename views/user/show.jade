@@ -1,36 +1,30 @@
 include ../mixins
 doctype
 html( lang="en" )
-    head
-        title WS Portal - Create user account
-        meta( charset='utf-8' )
-        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
-        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
-        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
-        //- Bootswatch Theme
-        link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+    +header
  
     body(style="padding-bottom:10rem;")
         script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
         script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
-        +nav("Windsurfing Portal", "dropdown_menu")
-            +nav_item( "/advert/show" ) Adverts
-            +nav_item( "/about" ) About
-            +nav_item( "/contact" ) Contact
-            +nav_item( "/signin" ) Signin
-            +nav_item_dropdown( "#" )( label="Dropdown")
-                +nav_item( "#" ) Action
-                +nav_item( "#" ) Another action
-                +nav_item( "#" ) Something else here
-                +nav_divider
-                +nav_header Nav header
-                +nav_item( "#" ) Separated link
-                +nav_item( "#" ) One more separated link
         .container
-            .jumbotron
-                if user
-                    if user.profileImage
-                        img.img-circle(src='/profileImage/show/#{user.profileImage.id}')
-                    h1 #{user.nickname}
-                    h2 Email: #{user.email}
-                    a.btn.btn-medium.btn-primary(href='/user/edit/#{user.id}') Edit
+            +nav("Windsurfing Portal", "dropdown_menu")
+                +nav_item( "/advert/show" ) Adverts
+                +nav_item( "/about" ) About
+                +nav_item( "/contact" ) Contact
+                +nav_item( "/signin" ) Signin
+                +nav_item_dropdown( "#" )( label="Dropdown")
+                    +nav_item( "#" ) Action
+                    +nav_item( "#" ) Another action
+                    +nav_item( "#" ) Something else here
+                    +nav_divider
+                    +nav_header Nav header
+                    +nav_item( "#" ) Separated link
+                    +nav_item( "#" ) One more separated link
+            .row
+                .jumbotron
+                    if user
+                        if user.profileImage
+                            img.img-circle(src='/profileImage/show/#{user.profileImage.id}')
+                        h1 #{user.nickname}
+                        h2 Email: #{user.email}
+                        a.btn.btn-medium.btn-primary(href='/user/edit/#{user.id}') Edit

@@ -1,55 +1,47 @@
 include ../mixins
 doctype
 html( lang="en" )
-    head
-        title Baking Bootstrap Snippets with Jade
-        meta( charset='utf-8' )
-        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
-        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
-        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
-        //- Bootswatch Theme
-        link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
- 
+    +header
     body(style="padding-bottom:10rem;")
         script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
-        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
-        +nav("Windsurfing Portal", "dropdown_menu")
-            +nav_item( "/advert/show", "active") Adverts
-            +nav_item( "/about" ) About
-            +nav_item( "/contact" ) Contact
-            +nav_item( "/signin" ) Signin
-            .form.navbar-form.navbar-right(role='search')
-                .form-group
-                    input.form-control(type='text', placeholder='Search adverts')
-                button.btn.btn-default(type='submit') Submit
+        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' )
         .container
+            +nav("Windsurfing Portal", "dropdown_menu")
+                +nav_item( "/advert/show", "active") Adverts
+                +nav_item( "/about" ) About
+                +nav_item( "/contact" ) Contact
+                +nav_item( "/signin" ) Signin
+                .form.navbar-form.navbar-right(role='search', action='/advert/show', method='get')
+                    .form-group
+                        input.form-control(type='text', placeholder='Search adverts',name='q')
+                    button.btn.btn-default(type='submit') Submit
             .row
-                .col-sm-12
+                .span12
                     +panel('Filter')
-                        .form.form-inline(role='form')
+                        .form.form-inline(role='form', action='/advert/show', method='get', id="filterForm")
                             .form-group 
-                                label(for='advertType') Type:
+                                label(for='advertType') #{__('filter.advert.type')}
                                 select#advertType.input-sm.form-control(name='advertType')
-                                    option Sell
-                                    option Buy
+                                    option(value='advert.type.sell') #{__('advert.type.sell')}
+                                    option(value='advert.type.buy') #{__('advert.type.buy')}
                             .form-group
-                                label(for='advertCategory') Category:
-                                select#advertCategory.form-control.input-sm(name='advertType')
-                                    option Sail
-                                    option Board
-                                    option Complete
-                                    option Clothes
-                            button.btn.btn-sm.btn-primary(type='submit') Set filter
+                                label(for='advertCategory') #{__('filter.advert.category')}
+                                select#advertCategory.form-control.input-sm(name='advertCategory')
+                                    option(value='sail') #{__('advert.category.sail')}
+                                    option(value='board') #{__('advert.category.board')}
+                                    option(value='complete') #{__('advert.category.complete')}
+                                    option(value='clothes') #{__('advert.category.clothes')}
+                            input.btn.btn-sm.btn-primary(type='submit', value='Set filter') 
             if adverts.length > 0
                 .row
                     each adv in adverts
-                        .col-xs-12.col-sm-6.col-md-4.col-lg-3
+                        .span4
                             +panel(adv.title, adv.createdAt.toISOString(), 'success') 
                                 p 
-                                    span.label.label-default #{adv.advertType}
-                                    span.label.label-warning #{adv.advertCategory}
+                                    span.label.label-default #{__('advert.type.' + adv.advertType)}
+                                    span.label.label-warning #{__('advert.category.' + adv.advertCategory)}
                                 p #{adv.advertBody}
-                                p Price: #{adv.price}
+                                p #{__('advert.price')}: #{adv.price}
                                 if adv.images && adv.images.length > 0
                                     div.row
                                         each image in adv.images
@@ -57,11 +49,11 @@ html( lang="en" )
                                                 a.thumbnail(href='#')
                                                     img(src = '/image/show/#{image.id}', alt='#{image.fileName}')
                                 p
-                                    a.btn.btn-medium(href='/advert/contact/#{adv.id}') Contact user
+                                    a.btn.btn-medium(href='/advert/contact/#{adv.id}') #{__('advert.contact.user')}
                 nav
                     ul.pager
                         li
-                            a(href='#') Next
+                            a(href='#') #{__('common.msg.next')}
             else
                 .jumbotron
-                    h1 No item found    
+                    h1 #{__('common.msg.no-items')}   
