@@ -5,25 +5,25 @@ html( lang="en" )
     body(style="padding-bottom:10rem;")
         script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
         script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' )
-        .container
+        .container-fluid
             +nav("Windsurfing Portal", "dropdown_menu")
                 +nav_item( "/advert/show", "active") Adverts
                 +nav_item( "/about" ) About
                 +nav_item( "/contact" ) Contact
-                +nav_item( "/signin" ) Signin
+                +nav_item( "/" ) Signin
                 .form.navbar-form.navbar-right(role='search', action='/advert/show', method='get')
-                    .form-group
+                    form-group
                         input.form-control(type='text', placeholder='Search adverts',name='q')
                     button.btn.btn-default(type='submit') Submit
             .row
-                .span12
+                .col-lg-12
                     +panel('Filter')
-                        .form.form-inline(role='form', action='/advert/show', method='get', id="filterForm")
+                        form.form-inline(role='form', action='/advert/show', method='get', id="filterForm")
                             .form-group 
                                 label(for='advertType') #{__('filter.advert.type')}
                                 select#advertType.input-sm.form-control(name='advertType')
-                                    option(value='advert.type.sell') #{__('advert.type.sell')}
-                                    option(value='advert.type.buy') #{__('advert.type.buy')}
+                                    option(value='sell') #{__('advert.type.sell')}
+                                    option(value='buy') #{__('advert.type.buy')}
                             .form-group
                                 label(for='advertCategory') #{__('filter.advert.category')}
                                 select#advertCategory.form-control.input-sm(name='advertCategory')
@@ -35,7 +35,7 @@ html( lang="en" )
             if adverts.length > 0
                 .row
                     each adv in adverts
-                        .span4
+                        .col-lg-4.col-md-6.col-sm-12.advert-box
                             +panel(adv.title, adv.createdAt.toISOString(), 'success') 
                                 p 
                                     span.label.label-default #{__('advert.type.' + adv.advertType)}
@@ -56,4 +56,4 @@ html( lang="en" )
                             a(href='#') #{__('common.msg.next')}
             else
                 .jumbotron
-                    h1 #{__('common.msg.no-items')}   
+                    h2.text-center #{__('common.msg.no-items')}   
