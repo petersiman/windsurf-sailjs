@@ -26,13 +26,16 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  '*': [ 'passport', 'flash' ],
-  user : {
-      'new' : 'flash',
-  },
-  advert : {
-      'show' : 'flash',
-  }
+    '*': [ 'passport', 'sessionAuth' ],
+    'auth': {
+      '*': ['passport']
+    },
+    'advert': {
+        'show' : ['passport']
+    },
+    'image' : {
+        '*' : ['passport']
+    }
 
   /***************************************************************************
   *                                                                          *

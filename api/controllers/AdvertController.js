@@ -26,7 +26,7 @@ module.exports = {
             console.log('seaching for query: ' + req.param('q'));
             filter.or = [{'advertTitle' : {'contains' : req.param('q')}}, {'advertBody' : {'contains' : req.param('q')}}]
         }
-        console.log(JSON.stringify(filter));
+        console.log("Got filter: " + JSON.stringify(filter));
         Advert.find(filter)
         .populate('images')
         .sort('createdAt desc')

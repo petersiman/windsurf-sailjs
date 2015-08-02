@@ -12,11 +12,8 @@ html( lang="en" )
                 +nav_item( "/advert/show", "active") Adverts
                 +nav_item( "/about" ) About
                 +nav_item( "/contact" ) Contact
-                +nav_item( "/signin" ) Signin
-                .form.navbar-form.navbar-right(role='search')
-                    .form-group
-                        input.form-control(type='text', placeholder='Search adverts')
-                    button.btn.btn-default(type='submit') Submit
+                +nav_item( "/login" ) Signin
+                +search
             .row
                 .jumbotron
                     p
@@ -26,10 +23,17 @@ html( lang="en" )
                                     li #{e}
                         form.form-signin(role='form', action='/auth/local/register', method='post')
                             h2.form-signin-heading Register
-                            input.form-control(name='username', type='text', placeholder='Username', required='true', autofocus='true')
-                            input.form-control(name='identifier', type='email', placeholder='Email address', required='', autofocus='')
-                            input.form-control(name='password', type='password', placeholder='Password', required='')
-                            button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign up
+                            .form-group
+                                label(for='username') Username
+                                input.form-control(name='username', type='text', placeholder='Username', required='true', autofocus='true')
+                            .form-group
+                                label(for='email') Email
+                                input.form-control(name='email', type='email', placeholder='Email address', required='', autofocus='')
+                            .form-group
+                                label(for='password') Password
+                                input.form-control(name='password', type='password', placeholder='Password', required='')
+                            .form-group
+                                button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign up
                             input(type='hidden', name='_csrf', value='#{_csrf}')
 
 

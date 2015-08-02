@@ -6,11 +6,9 @@ html( lang="en" )
     body(style="padding-bottom:10rem;")
         .container
             +nav("Windsurfing Portal", "dropdown_menu")
-                +nav_item( "/advert/show", "active") Adverts
+                +nav_item( "/advert/show") Adverts
                 +nav_item( "/about" ) About
-                +nav_item( "/contact" ) Contact
-                +nav_item( "/signin" ) Signin
-                .form.navbar-form.navbar-right(role='search')
-                    .form-group
-                        input.form-control(type='text', placeholder='Search adverts')
-                    button.btn.btn-default(type='submit') Submit
+                +nav_item( "/contact", "active" ) Contact
+                +nav_item( "/login") Signin
+                +search
+            .row
