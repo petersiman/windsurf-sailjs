@@ -19,15 +19,33 @@ html( lang="en" )
                             .form-group 
                                 label(for='advertType') #{__('filter.advert.type')}
                                 select#advertType.input-sm.form-control(name='advertType')
-                                    option(value='sell') #{__('advert.type.sell')}
-                                    option(value='buy') #{__('advert.type.buy')}
+                                    if filter.advertType == 'sell'
+                                        option(value='sell', selected='selected') #{__('advert.type.sell')}
+                                    else 
+                                        option(value='sell') #{__('advert.type.sell')}
+                                    if filter.advertType == 'buy'
+                                        option(value='buy', selected='selected') #{__('advert.type.buy')}
+                                    else 
+                                        option(value='buy') #{__('advert.type.buy')}
                             .form-group
                                 label(for='advertCategory') #{__('filter.advert.category')}
                                 select#advertCategory.form-control.input-sm(name='advertCategory')
-                                    option(value='sail') #{__('advert.category.sail')}
-                                    option(value='board') #{__('advert.category.board')}
-                                    option(value='complete') #{__('advert.category.complete')}
-                                    option(value='clothes') #{__('advert.category.clothes')}
+                                    if filter.advertCategory == 'sail'
+                                        option(value='sail', selected='selected') #{__('advert.category.sail')}
+                                    else 
+                                        option(value='sail') #{__('advert.category.sail')}
+                                    if filter.advertCategory == 'board' 
+                                        option(value='board', selected='selected') #{__('advert.category.board')}
+                                    else
+                                        option(value='board') #{__('advert.category.board')}
+                                    if filter.advertCategory == 'complete' 
+                                        option(value='complete', selected='selected') #{__('advert.category.complete')}
+                                    else
+                                        option(value='complete') #{__('advert.category.complete')}
+                                    if filter.advertCategory == 'clothes' 
+                                        option(value='clothes', selected='selected') #{__('advert.category.clothes')}
+                                    else
+                                        option(value='clothes') #{__('advert.category.clothes')}
                             input.btn.btn-sm.btn-primary(type='submit', value='Set filter') 
             if adverts.length > 0
                 .row

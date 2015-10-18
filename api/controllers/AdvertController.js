@@ -34,7 +34,8 @@ module.exports = {
         .exec(function(err, adverts) {
           console.log(JSON.stringify(adverts));
           res.view({
-            adverts: adverts
+            adverts: adverts,
+            filter: filter
           });
         });
     },
