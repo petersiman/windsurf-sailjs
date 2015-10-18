@@ -41,9 +41,6 @@ module.exports.routes = {
   '/contact': {
       view: 'contact'
   },
-  '/signin': {
-      view: 'signin'
-  },
   'get /login': 'AuthController.login',
   'get /logout': 'AuthController.logout',
   'get /register': 'AuthController.register',

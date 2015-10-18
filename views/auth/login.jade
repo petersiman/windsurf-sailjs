@@ -16,23 +16,27 @@ html( lang="en" )
                 +search
             .row
                 .jumbotron.col-sm-6.col-md-4.col-md-offset-4
-                    if errors && errors.length > 0
-                        ul.alert.alert-danger
-                            each e in errors
-                                li #{e}
-                    form(role='form', action='/auth/local', method='post')
-                        h2.form-signin-heading Please sign in
-                        .form-group
-                            label(for='email') Email address
-                            input.form-control(name='email', id='email', type='email', placeholder='Email address', required='', autofocus='')
-                        .form-group
-                            label(for='password') Password
-                            input.form-control(name='password', id='password', type='password', placeholder='Password', required='')
-                        .form-group
-                            button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
-                        input(type='hidden', name='_csrf', value='#{_csrf}')
-                    a(href='/register', role='button') Create new account
-                    if Object.keys(providers).length
-                        h4 You can also use one of these...
-                        each key in Object.keys(providers)
-                            a(href='/auth/#{providers[key].slug}', role='button') #{providers[key].name}    
+                    if !req.user
+                        if errors && errors.length > 0
+                            ul.alert.alert-danger
+                                each e in errors
+                                    li #{e}
+                        form(role='form', action='/auth/local', method='post')
+                            h2.form-signin-heading Please sign in
+                            .form-group
+                                label(for='username') Username
+                                input.form-control(name='username', id='username', type='username', placeholder='Username', required='', autofocus='')
+                            .form-group
+                                label(for='password') Password
+                                input.form-control(name='password', id='password', type='password', placeholder='Password', required='')
+                            .form-group
+                                button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
+                            input(type='hidden', name='_csrf', value='#{_csrf}')
+                        a(href='/register', role='button') Create new account
+                        if Object.keys(providers).length
+                            h4 You can also use one of these...
+                            each key in Object.keys(providers)
+                                a(href='/auth/#{providers[key].slug}', role='button') #{providers[key].name} 
+                    else
+                        h1 You are logged in!
+                        p Click <a href="/logout">here</a> to logout.
