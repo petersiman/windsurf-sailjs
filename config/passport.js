@@ -16,7 +16,10 @@
 
 module.exports.passport = {
   local: {
-    strategy: require('passport-local').Strategy
+    strategy: require('passport-local').Strategy,
+    options: {
+      usernameField: 'username'
+    }
   },
 
   // bearer: {
@@ -54,17 +57,7 @@ module.exports.passport = {
     // }
   // },
 
-  //TODO zedituj potrebne redirect URL v administracii - https://developers.google.com/identity/protocols/OpenIDConnect
-  google: {
-    name: 'Google',
-    protocol: 'oauth2',
-    strategy: require('passport-google-oauth').OAuth2Strategy,
-    options: {
-      clientID: '252842893245-1po3gf08lovbak2fpctbnghj7dipmroo.apps.googleusercontent.com',
-      clientSecret: 'AIzaSyCkaf9F7iDHlirdncaQcnOYZEfAJdyMGzg',
-      scope: ['email']
-    }
-  }
+  
 
   // cas: {
     // name: 'CAS',
