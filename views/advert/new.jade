@@ -4,40 +4,34 @@ html( lang="en" )
     +header
  
     body(style="padding-bottom:10rem;")
-        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
-        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+        +scripts
         .container
             +nav("Windsurfing Portal", "dropdown_menu")
-                +nav_item( "/advert/show", "active") Adverts
-                +nav_item( "/about" ) About
-                +nav_item( "/contact" ) Contact
-                +nav_item( "/login" ) Signin
-                +search
             .row
-                .jumbotron.col-sm-6.col-md-4.col-md-offset-4
-                    h2 Create new advert
+                .jumbotron.col-lg-12.col-sm-6.col-md-4
+                    h2 #{__('advert.create-new')}
                     if flash && flash.err
                         ul.alert.alert-success
                             each e in Object.keys(flash.err.invalidAttributes)
                                 li Chyba pri spracovani #{e}
                     form(action='/advert/create', method='post', name='addAdvertForm', enctype='multipart/form-data')
-                        label(for='advertType') Typ inzeratu
+                        label(for='advertType') #{__('advert.type')}
                         select#advertType.form-control(name='advertType')
-                            option(value='buy') Koupím
-                            option(value='sell') Prodám
-                            option(value='give') Daruji
-                        label(for='advertCategory') Kategorie
+                            option(value='buy') #{__('advert.type.buy')}
+                            option(value='sell') #{__('advert.type.sell')}
+                            option(value='give') #{__('advert.type.give')}
+                        label(for='advertCategory') #{__('advert.category')}
                         select#advertCategory.form-control(name='advertCategory')
-                            option(value='complete') Komplet
-                            option(value='sail') Plachta
-                            option(value='board') Prkno
-                            option(value='clothes') Obleceni
-                            option(value='other') Ostatni
+                            option(value='complete') #{__('advert.category.complete')}
+                            option(value='sail') #{__('advert.category.sail')}
+                            option(value='board') #{__('advert.category.board')}
+                            option(value='clothes') #{__('advert.category.clothes')}
+                            option(value='other') #{__('advert.category.other')}
                         .form-group
-                            label(for='advertTitle') Title
+                            label(for='advertTitle') #{__('advert.title')}
                             input#exampleInputEmail1.form-control(type='text', placeholder='Enter title', name='title')
                         .form-group
-                            label(for='advertBody') Telo inzeratu
+                            label(for='advertBody') #{__('advert.body')}
                             textarea#advertBody.form-control(rows='3', name='advertBody', placeholder='Enter description')
                         .form-group
                             label(for='price') Cena
@@ -53,3 +47,4 @@ html( lang="en" )
                             input#imageFile3(type='file', name='imageFile')
                             p.help-block Max. 3 pictures
                         button.btn.btn-default(type='submit') Submit
+                        input(type='hidden', name='_csrf', value='#{_csrf}')

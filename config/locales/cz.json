@@ -11,5 +11,13 @@
   "advert.contact.user": "Kontaktovat uživatele",
   "advert.created.at": "Vytvořeno:",
   "common.msg.next": "Další",
-  "common.msg.no-items": "Nebyly nalezeny žádné položky."
+  "common.msg.no-items": "Nebyly nalezeny žádné položky.",
+  "advert.login-to-add-advert" : "Pro vložení inzerátu se musíte přihlásit.",
+    "advert.button-add": "Přidat inzerát",
+    
+    "nav.advert" : "Inzeráty",
+    "nav.contact" : "Kontakty",
+    "nav.about" : "O nás",
+    "nav.signin" : "Přihlásit se"
+    
 }

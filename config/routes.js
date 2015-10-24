@@ -32,9 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-        view: 'homepage',
-  },
+  '/': 'AdvertController.show',
   '/about':{
       view: 'about'
   },

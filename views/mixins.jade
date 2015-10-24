@@ -1,19 +1,44 @@
 //- Navbar mixins
-mixin nav(name, id, style)
+mixin nav(name, id, style, user)
     - var style = (typeof style === 'undefined') ? "default" : style
     .row
-        nav( role="navigation", class=["span 12 navbar", "navbar-" + style] )
-            .navbar-header
-                button.navbar-toggle.collapsed( type="button", data-toggle="collapse", data-target="#" + id, aria-expanded="false", aria-controls="navbar")
-                    span.sr-only Toggle navigation
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a.navbar-brand(href="#")= name
-     
-            .collapse.navbar-collapse( id=id )
-                ul.nav.navbar-nav
-                    block
+        nav.span.12.navbar.navbar-default(role='navigation')
+          .navbar-header
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#dropdown_menu', aria-expanded='false', aria-controls='navbar')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.navbar-brand(href='/advert/show')
+                img(alt=  name src="/assets/images/logo.png")
+          .collapse.navbar-collapse( id=id )
+            ul.nav.navbar-nav
+              li.active
+                a(href='/advert/show') #{__('nav.advert')}
+              li
+                a(href='/about') #{__('nav.about')}
+              li
+                a(href='/contact') #{__('nav.contact')}
+              li
+                a(href='/login') #{__('nav.signin')}
+              form.navbar-form.navbar-left(role='search', action='/advert/show', method='get')
+                form-group
+                  input.form-control(type='text', placeholder='Search adverts', name='q', data-cip-id='cIPJQ342845639')
+                button.btn.btn-default(type='submit') Submit
+            if user
+                .collapse.navbar-collapse
+                  ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href='/advert/new') #{__('advert.button-add')}    
+                    li.dropdown
+                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                        | #{user.username}
+                        span.caret
+                      ul.dropdown-menu
+                        li
+                          a(href='/user/#{user.id}') #{__('user.my-profile')}
+    
+
  
 mixin nav_item(href, active)
     li(class=active): a( href=href )
@@ -52,14 +77,17 @@ mixin header
         meta( charset='utf-8' )
         meta( http-equiv='X-UA-Compatible', content='IE=edge' )
         meta( name='viewport', content='width=device-width, initial-scale=1.0' )
-        meta( name='description', content='Baking Bootstrap Snippets with Jade' )
+        meta( name='description', content='Windsurgfing portal' )
         //- Bootswatch Theme
         link(href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css", rel="stylesheet")
 
+mixin scripts
+    script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+    script( src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' )
         
 //Search form mixin
 mixin search
-    form.navbar-form.navbar-right(role='search', action='/advert/show', method='get')
+    form.navbar-form.navbar-left(role='search', action='/advert/show', method='get')
         form-group
             input.form-control(type='text', placeholder='Search adverts',name='q')
         button.btn.btn-default(type='submit') Submit

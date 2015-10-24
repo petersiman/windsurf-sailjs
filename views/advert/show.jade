@@ -3,15 +3,9 @@ doctype
 html( lang="en" )
     +header
     body(style="padding-bottom:10rem;")
-        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
-        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js' )
+        +scripts
         .container
-            +nav("Windsurfing Portal", "dropdown_menu")
-                +nav_item( "/advert/show", "active") Adverts
-                +nav_item( "/about" ) About
-                +nav_item( "/contact" ) Contact
-                +nav_item( "/login" ) Signin
-                +search
+            +nav("Windsurfing Portal", "dropdown_menu", "", user)
             .row
                 .col-lg-12
                     +panel('Filter')
@@ -47,6 +41,10 @@ html( lang="en" )
                                     else
                                         option(value='clothes') #{__('advert.category.clothes')}
                             input.btn.btn-sm.btn-primary(type='submit', value='Set filter') 
+            .row
+                .col-lg-12
+                    if !user
+                        .alert.alert-warning #{__('advert.login-to-add-advert')}
             if adverts.length > 0
                 .row
                     each adv in adverts
