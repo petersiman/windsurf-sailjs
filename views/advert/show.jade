@@ -49,9 +49,12 @@ html( lang="en" )
                 .row
                     each adv in adverts
                         .col-lg-4.col-md-6.col-sm-12
-                            +panel(adv.title, adv.createdAt.toISOString(), 'success') 
+                            +panel(adv.title, __('advert.created-at') + ' ' + moment(adv.createdAt).format('DD.MM.YYYY HH:mm'), 'success') 
                                 p 
-                                    span.label.label-default #{__('advert.type.' + adv.advertType)}
+                                    if adv.advertType == 'buy'
+                                        span.label.label-success #{__('advert.type.' + adv.advertType)}
+                                    else
+                                        span.label.label-primary #{__('advert.type.' + adv.advertType)}
                                     span.label.label-warning #{__('advert.category.' + adv.advertCategory)}
                                 p #{adv.advertBody}
                                 p #{__('advert.price')}: #{adv.price}
@@ -62,7 +65,21 @@ html( lang="en" )
                                                 a.thumbnail(href='#')
                                                     img(src = '/image/show/#{image.id}', alt='#{image.fileName}')
                                 p
-                                    a.btn.btn-medium(href='/advert/contact/#{adv.id}') #{__('advert.contact.user')}
+                                    .btn-group(role='group')
+                                        if user && adv.creator == user.id
+                                            .btn-group
+                                              button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                                                | #{__('advert.actions')}
+                                                span.caret
+                                              ul.dropdown-menu
+                                                li
+                                                  a(href='#') #{__('advert.edit')}
+                                                li
+                                                  a(href='#') #{__('advert.delete')}
+                                          else 
+                                            a.btn.btn-default(href='/advert/contact/#{adv.id}') #{__('advert.contact.user')}
+
+                                            
                 nav
                     ul.pager
                         li

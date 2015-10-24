@@ -41,6 +41,7 @@ module.exports = {
     },
     create: function (req, res, next) {
         var advertToBe = req.params.all();
+        advertToBe.creator = req.user;
         console.log('Request params: ' + JSON.stringify(req.params.all()));
         req.file('imageFile').upload({
 
