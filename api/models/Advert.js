@@ -42,6 +42,12 @@ module.exports = {
     advertBody: {
         type: 'text',
         required: true
+    },
+    state: {
+        type: 'string',
+        required: true,
+        defaultsTo: 'new',
+        enum: ['new', 'sold', 'deleted']
     }
     }
 };

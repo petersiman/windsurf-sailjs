@@ -32,12 +32,22 @@ module.exports = {
         },
         passports : { collection: 'Passport', via: 'user' },
 
+        role: {
+          type: 'string',
+          required: 'true',
+          defaultsTo: 'user',
+          enum: ['user', 'admin']
+        },
+
         toJSON: function(){
           var obj = this.toObject();
           delete obj._csrf;
           return obj;
+        },
+
+        isAdmin: function(){
+          return this.role == 'admin';
         }
 
     }
 };
-

@@ -17,7 +17,7 @@ module.exports = {
             console.log('advert type: ' + req.param('advertType'));
             filter.advertType = req.param('advertType');
         }
-        
+
         if ( req.param('advertCategory')){
             console.log('advert category: ' + req.param('advertCategory'));
             filter.advertCategory = req.param('advertCategory');
@@ -26,6 +26,7 @@ module.exports = {
             console.log('seaching for query: ' + req.param('q'));
             filter.or = [{'advertTitle' : {'contains' : req.param('q')}}, {'advertBody' : {'contains' : req.param('q')}}]
         }
+        filter.state = 'new';
         console.log("Got filter: " + JSON.stringify(filter));
         Advert.find(filter)
         .populate('images')
@@ -39,6 +40,32 @@ module.exports = {
           });
         });
     },
+    sold: function(req, res, next){
+      Advert.findOne(req.param('id')).exec(function(err, advert){
+        var result = {};
+        if (err){
+          result.success = false;
+          res.send(result);
+        }
+
+        if (req.user.id == advert.creator){
+            Advert.update({id: advert.id}, {state: 'sold'}).exec(function(err, adverts){
+                if (err){
+                    console.error('Error while updating advers');
+                    result.success = false;
+                    res.send(result);
+                }
+                
+                console.log(adverts.length + ' adverts updated.');
+                result.success = true;
+                res.send(result);
+            });
+            
+        }
+        
+      });
+
+    },
     create: function (req, res, next) {
         var advertToBe = req.params.all();
         advertToBe.creator = req.user;
@@ -47,17 +74,17 @@ module.exports = {
 
               // You can apply a file upload limit (in bytes)
               maxBytes: 100000
-              
+
             }, function whenDone(err, uploadedFiles) {
               if (err) {
                 console.log('Upload error: ');
                 console.log(err);
-                
+
                 req.session.flash = {
                     err: err
                 }
                 return res.redirect('/advert/new');
-              } 
+              }
               else {
                 console.log(uploadedFiles);
                 advertToBe.images = [uploadedFiles.length]
@@ -78,11 +105,11 @@ module.exports = {
                     if (err) {
                         console.log('Validation error: ');
                         console.log(err);
-                        
+
                         req.session.flash = {
                             err: err
                         }
-                        
+
                         return res.redirect('/advert/new');
                     }
                     console.log(JSON.stringify(advert));
@@ -94,14 +121,21 @@ module.exports = {
               // });
               }
             });
-		
+
     },
     edit: function (req, res) {
 		return res.send("Hi there!");
     },
     delete: function (req, res) {
-		return res.send("Hi there!");
+      var advert = Advert.findOne(req.param('id'));
+      console.log('Got advert :' + JSON.stringify(advert.title));
+      var result = {success:false};
+      if (req.user == advert.creator){
+          Advert.destroy(advert)
+          console.log('Advert was deleted');
+          result.success = true;
+      }
+      res.send(result);
     }
-	
-};
 
+};

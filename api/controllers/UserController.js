@@ -63,8 +63,21 @@ module.exports = {
             if (err){
                 return next(err);
             }
+            
+            var adverts = [];
+            var users = [];
+            
+            if (user.isAdmin()){
+                adverts = Advert.find({where: {state : 'new'}, limit : 20});
+                users = User.find({limit: 20});
+            } else {
+                adverts = Advert.find({where: {state : 'new' , creator : user.id}, limit : 20});
+            }
+            
             res.view({
-                user: user
+                user: user,
+                adverts: adverts,
+                users: users
             });
         });
     }

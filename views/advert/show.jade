@@ -66,20 +66,35 @@ html( lang="en" )
                                                     img(src = '/image/show/#{image.id}', alt='#{image.fileName}')
                                 p
                                     .btn-group(role='group')
-                                        if user && adv.creator == user.id
+                                        if user && (adv.creator == user.id || user.isAdmin())
                                             .btn-group
                                               button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                                                 | #{__('advert.actions')}
                                                 span.caret
                                               ul.dropdown-menu
                                                 li
-                                                  a(href='#') #{__('advert.edit')}
+                                                  a#js-sold-btn(data-advert-id='#{adv.id}', href='#') #{__('advert.sold')}
                                                 li
-                                                  a(href='#') #{__('advert.delete')}
+                                                  a#js-delete-btn(data-advert-id='#{adv.id}', href='#') #{__('advert.delete')}
                                           else 
-                                            a.btn.btn-default(href='/advert/contact/#{adv.id}') #{__('advert.contact.user')}
-
-                                            
+                                            a.btn.btn-default(id='js-contact-user-btn' href='#') #{__('advert.contact.user')}
+                                            form#js-contact-user-form.hidden(role='form', method='post', action='/advert/contact')
+                                              input(type='hidden', name='advertId', value='#{adv.id}')
+                                              .form-group
+                                                  label(for='name') #{__('contact.name')}
+                                                  input#name.form-control(type='text', placeholder='Enter name', name='name')
+                                              .form-group
+                                                  label(for='email') #{__('contact.email')}
+                                                  input#email.form-control(type='text', placeholder='Enter email', name='email')
+                                              .form-group
+                                                  label(for='phone') #{__('contact.phone')}
+                                                  input#phone.form-control(type='text', placeholder='Enter phone', name='phone')
+                                              .form-group
+                                                  label(for='contactMessage') #{__('contact.message')}
+                                                  textarea#contactMessage.form-control(rows='3', name='advertBody', placeholder='Enter description')
+                                              button.btn.btn-default(type='submit') Submit
+                                              input(type='hidden', name='_csrf', value='#{_csrf}')
+                                                  
                 nav
                     ul.pager
                         li

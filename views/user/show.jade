@@ -4,22 +4,9 @@ html( lang="en" )
     +header
  
     body(style="padding-bottom:10rem;")
-        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
-        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
+        +scripts
         .container
-            +nav("Windsurfing Portal", "dropdown_menu")
-                +nav_item( "/advert/show" ) Adverts
-                +nav_item( "/about" ) About
-                +nav_item( "/contact" ) Contact
-                +nav_item( "/signin" ) Signin
-                +nav_item_dropdown( "#" )( label="Dropdown")
-                    +nav_item( "#" ) Action
-                    +nav_item( "#" ) Another action
-                    +nav_item( "#" ) Something else here
-                    +nav_divider
-                    +nav_header Nav header
-                    +nav_item( "#" ) Separated link
-                    +nav_item( "#" ) One more separated link
+            +nav("Windsurfing Portal", "dropdown_menu", "", user)
             .row
                 .jumbotron
                     if user
@@ -28,3 +15,44 @@ html( lang="en" )
                         h1 #{user.nickname}
                         h2 Email: #{user.email}
                         a.btn.btn-medium.btn-primary(href='/user/edit/#{user.id}') Edit
+                        ul#js-user-profile-tabs.nav.nav-tabs(role='tablist')
+                            li(role='presentation')
+                                a(role='tab', aria-controls='adverts') Adverts
+                                if adverts.lenght > 0
+                                    table.table.table-striped
+                                        thead
+                                            tr
+                                                th Advert title
+                                                th Price
+                                                th Creator
+                                                th State
+                                                th Actions
+                                        tbody
+                                            each adv in adverts
+                                                tr
+                                                    td #{adv.title}
+                                                    td #{adv.price}
+                                                    td #{adv.creator}
+                                                    td #{adv.state}
+                                                    td &npsp;
+                                else
+                                    .alert.alert-warning No adverts found.
+                                    
+                            if user        
+                                li(role='presentation')
+                                    a(role='tab', aria-controls='users') Users
+                                        if users.length > 0
+                                            table.table.table-striped
+                                                thead  
+                                                    tr
+                                                        th Username
+                                                        th Email
+                                                        th Role
+                                                tbody
+                                                    each usr in users
+                                                        tr 
+                                                            td #{usr.username}
+                                                            td #{usr.email}
+                                                            td #{usr.role}
+                                        else
+                                            .alert.alert-warning No users found.
