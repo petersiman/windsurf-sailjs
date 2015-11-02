@@ -13,7 +13,29 @@ module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  moment = require('moment')
+  moment = require('moment');
+  var LocalStrategy = require('passport-local').Strategy;
   sails.services.passport.loadStrategies();
+    
+    User.findOne({username : 'test'}, function(err, user){
+        if (!user) {
+            console.log('Default user doesnt exist.');
+            var defaultUser = {
+                username : 'test',
+                email : 'test@test.com',
+                passports : [{protocol : 'local', password : 'test1234'}],
+                role : 'admin'
+            };
+            User.create(defaultUser, function(err, newUser){
+                if (!err){
+                    console.log('Default user ' + newUser.username + ' was successfully created.');
+                }
+            });
+        } 
+    });
+    
+    
+    
+
   cb();
 };
